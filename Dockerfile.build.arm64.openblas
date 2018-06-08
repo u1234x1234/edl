@@ -1,0 +1,10 @@
+FROM dockcross/linux-arm64
+
+
+WORKDIR /work
+
+# Build OpenBLAS
+RUN git clone --recursive -b v0.3.0 https://github.com/xianyi/OpenBLAS.git && \
+    cd OpenBLAS && \
+    make TARGET=ARMV8 BINARY=64 HOSTCC=gcc NOFORTRAN=1 USE_THREAD=0 COMMON_OPT=-Os NUM_THREADS=1 -j$(nproc) && \
+    make install PREFIX=/work/lib_openblas/
