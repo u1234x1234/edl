@@ -1,0 +1,8 @@
+FROM dockcross/linux-arm64
+
+ENV ARCH aarch64
+ENV HOSTCC gcc
+
+RUN git clone --recursive https://github.com/pytorch/pytorch.git
+
+WORKDIR /work/pytorch
