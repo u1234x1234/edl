@@ -41,3 +41,4 @@ if __name__ == '__main__':
     args = arg_parser.parse_args()
 
     copy_from_image_to_host('build_openblas', '/work/lib_openblas', './')
+    copy_from_image_to_host('build_opencv', '/work/lib_opencv', './')

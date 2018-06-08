@@ -1,0 +1,18 @@
+FROM dockcross/linux-arm64
+
+ENV ARCH aarch64
+ENV HOSTCC gcc
+
+RUN wget https://github.com/opencv/opencv/archive/3.4.1.tar.gz
+RUN tar zxvf 3.4.1.tar.gz
+
+RUN cd opencv-3.4.1 && \
+    mkdir build && \
+    cd build && \
+    cmake -DCMAKE_INSTALL_PREFIX=/work/lib_opencv/ \
+	  -DBUILD_LIST=core,highgui,improc,img_codecs \
+	  -DBUILD_opencv_apps=0 -DWITH_PTHREADS_PF=0 \
+	  -DWITH_PROTOBUF=0 -DWITH_OPENCL=0 -DWITH_MATLAB=0 \
+	  -DWITH_GTK=0 -DWITH_CUDA=0 -DWITH_CAROTENE=0 -DWITH_WEBP=0 .. && \
+    make -j$(nproc) && \
+    make install
