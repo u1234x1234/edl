@@ -43,3 +43,4 @@ if __name__ == '__main__':
     copy_from_image_to_host('build_openblas', '/work/lib_openblas', './')
     copy_from_image_to_host('build_opencv', '/work/lib_opencv', './')
     copy_from_image_to_host('build_nnpack', '/work/lib_nnpack', './')
+    copy_from_image_to_host('build_mxnet', '/work/lib_mxnet', './')

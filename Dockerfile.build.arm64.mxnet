@@ -1,0 +1,13 @@
+FROM build_openblas
+
+ENV ARCH aarch64
+ENV HOSTCC gcc
+
+RUN git clone --recursive https://github.com/apache/incubator-mxnet.git
+
+WORKDIR /work/incubator-mxnet
+RUN make -j$(nproc) USE_BLAS=openblas USE_SSE=0 USE_F16C=0 USE_OPENMP=0 USE_OPENCV=0 USE_LAPACK=0 ADD_CFLAGS="-I/work/lib_openblas/include/" ADD_LDFLAGS="-L/work/lib_openblas/lib/"
+
+RUN mkdir /work/lib_mxnet/
+RUN cp -r include/ /work/lib_mxnet/
+RUN cp -r lib/ /work/lib_mxnet/
