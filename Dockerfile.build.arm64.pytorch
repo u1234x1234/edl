@@ -3,6 +3,11 @@ FROM dockcross/linux-arm64
 ENV ARCH aarch64
 ENV HOSTCC gcc
 
+RUN apt-get update && \
+    apt-get install libeigen3-dev -y
+
 RUN git clone --recursive https://github.com/pytorch/pytorch.git
 
-WORKDIR /work/pytorch
+WORKDIR /work/pytorch/build/
+
+RUN cmake -DCMAKE_MODULE_PATH=/usr/share/cmake-2.8/Modules/ -DUSE_IDEEP=OFF -DWITH_CUDA=OFF -DUSE_CUDA=OFF -DUSE_NCCL=OFF -DUSE_MKLML=OFF -DWITH_NCCL=OFF -DUSE_OPENCV=OFF -DUSE_METAL=OFF -DUSE_GFLAGS=OFF -DBUILD_PYTHON=OFF -DUSE_MPI=OFF -DUSE_NUMA=OFF -DUSE_GLOO=OFF -DUSE_LMDB=OFF -DUSE_LEVELDB=OFF -DUSE_GLOG=OFF -DUSE_NNPACK=OFF -DBUILD_SHARED_LIBS=OFF -DUSE_MOBILE_OPENGL=OFF ..
